@@ -31,7 +31,7 @@ function Directory() {
   // API se Live Data Fetch karne ka logic
   const fetchMarhoomein = async () => {
     try {
-      const response = await axios.get('http://khayyan-portal-backend.vercel.app/api/marhoomein/all');
+      const response = await axios.get('https://khayyan-portal-backend.vercel.app/api/marhoomein/all');
       if (response.data.success) {
         setMarhoomeinData(response.data.data);
       }
@@ -79,7 +79,7 @@ function Directory() {
     
     if (window.confirm("⚠️ Kya aap waqai is record ko hamesha ke liye delete karna chahte hain? Is se tasveer bhi server se saaf ho jayegi.")) {
       try {
-        const response = await axios.delete(`http://khayyan-portal-backend.vercel.app/api/marhoomein/delete/${id}`);
+        const response = await axios.delete(`https://khayyan-portal-backend.vercel.app/api/marhoomein/delete/${id}`);
         if (response.data.success) {
           alert("🗑️ Record kamyabi se delete ho gaya!");
           fetchMarhoomein(); // UI refresh karne ke liye
@@ -137,7 +137,7 @@ function Directory() {
         data.append('image', editImageFile);
       }
 
-      const response = await axios.put(`http://khayyan-portal-backend.vercel.app/api/marhoomein/update/${editMarhoom._id}`, data, {
+      const response = await axios.put(`https://khayyan-portal-backend.vercel.app/api/marhoomein/update/${editMarhoom._id}`, data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 

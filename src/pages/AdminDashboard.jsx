@@ -43,7 +43,7 @@ const AdminDashboard = () => {
 
   const loadCurrentStats = async () => {
     try {
-      const response = await axios.get('http://khayyan-portal-backend.vercel.app/api/marhoomein/stats/all');
+      const response = await axios.get('https://khayyan-portal-backend.vercel.app/api/marhoomein/stats/all');
       if (response.data.success && response.data.data) {
         setFamiliesInput(response.data.data.familiesCount);
         setShajraInput(response.data.data.shajraCount);
@@ -55,7 +55,7 @@ const AdminDashboard = () => {
 
   const fetchAnnouncements = async () => {
     try {
-      const response = await axios.get('http://khayyan-portal-backend.vercel.app/api/announcements/all');
+      const response = await axios.get('https://khayyan-portal-backend.vercel.app/api/announcements/all');
       if (response.data.success) {
         setAllAnnouncements(response.data.data);
       }
@@ -120,7 +120,7 @@ const AdminDashboard = () => {
         data.append('image', imageFile); 
       }
 
-      const response = await axios.post('http://khayyan-portal-backend.vercel.app/api/marhoomein/add', data, {
+      const response = await axios.post('https://khayyan-portal-backend.vercel.app/api/marhoomein/add', data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
@@ -160,7 +160,7 @@ const AdminDashboard = () => {
 
     try {
       if (editId) {
-        const response = await axios.put(`http://khayyan-portal-backend.vercel.app/api/announcements/update/${editId}`, data, {
+        const response = await axios.put(`https://khayyan-portal-backend.vercel.app/api/announcements/update/${editId}`, data, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
         if (response.data.success) {
@@ -170,7 +170,7 @@ const AdminDashboard = () => {
           setTimeout(() => setAnnouncementMsg({ text: '', isError: false }), 4000);
         }
       } else {
-        const response = await axios.post('http://khayyan-portal-backend.vercel.app/api/announcements/add', data, {
+        const response = await axios.post('https://khayyan-portal-backend.vercel.app/api/announcements/add', data, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
         if (response.data.success) {
@@ -208,7 +208,7 @@ const AdminDashboard = () => {
   const handleDeleteAnnouncement = async (id) => {
     if (window.confirm("Kya aap waqai is khabarnama ko delete karna chahte hain?")) {
       try {
-        const response = await axios.delete(`http://khayyan-portal-backend.vercel.app/api/announcements/delete/${id}`);
+        const response = await axios.delete(`https://khayyan-portal-backend.vercel.app/api/announcements/delete/${id}`);
         if (response.data.success) {
           alert("🗑️ Khabarnama kamyabi se delete ho gaya!");
           if (editId === id) handleCancelEdit(); 
@@ -225,7 +225,7 @@ const AdminDashboard = () => {
     setStatsLoading(true);
     setStatsMessage("");
     try {
-      const response = await axios.put('http://khayyan-portal-backend.vercel.app/api/marhoomein/stats/update', {
+      const response = await axios.put('https://khayyan-portal-backend.vercel.app/api/marhoomein/stats/update', {
         familiesCount: familiesInput,
         shajraCount: shajraInput
       });

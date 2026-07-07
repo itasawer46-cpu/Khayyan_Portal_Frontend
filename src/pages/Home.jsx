@@ -32,7 +32,7 @@ function Home() {
   useEffect(() => {
     const fetchLiveCount = async () => {
       try {
-        const response = await axios.get('http://khayyan-portal-backend.vercel.app/api/marhoomein/all');
+        const response = await axios.get('https://khayyan-portal-backend.vercel.app/api/marhoomein/all');
         if (response.data.success) {
           setTotalRecords(response.data.data.length);
         }
@@ -43,7 +43,7 @@ function Home() {
 
     const fetchStats = async () => {
       try {
-        const response = await axios.get('http://khayyan-portal-backend.vercel.app/api/marhoomein/stats/all');
+        const response = await axios.get('https://khayyan-portal-backend.vercel.app/api/marhoomein/stats/all');
         if (response.data.success && response.data.data) {
           setFamilies(response.data.data.familiesCount);
           setShajra(response.data.data.shajraCount);
@@ -55,7 +55,7 @@ function Home() {
 
     const fetchAnnouncements = async () => {
       try {
-        const response = await axios.get('http://khayyan-portal-backend.vercel.app/api/announcements/all');
+        const response = await axios.get('https://khayyan-portal-backend.vercel.app/api/announcements/all');
         if (response.data.success) {
           setUpdatesData(response.data.data);
         }
