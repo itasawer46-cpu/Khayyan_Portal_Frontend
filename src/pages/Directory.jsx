@@ -102,7 +102,7 @@ function Directory() {
       dateOfDemise: person.dateOfDemise,
       dayOfWeek: person.dayOfWeek || ''
     });
-    setEditImageFile(null); // File input reset
+    setEditImageFile(null); // File input state reset
   };
 
   // --- EDIT INPUTS CHANGE HANDLER ---
@@ -122,34 +122,36 @@ function Directory() {
     }
   };
 
-  // --- UPDATE SUBMIT FUNCTION ---
+  // --- UPDATE SUBMIT FUNCTION (🔥 FIX: Added multipart/form-data headers) ---
   const handleUpdateSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const data = new FormData();
-    data.append('name', editFormData.name);
-    data.append('fatherName', editFormData.fatherName);
-    data.append('wand', editFormData.wand);
-    data.append('dateOfDemise', editFormData.dateOfDemise);
-    data.append('dayOfWeek', editFormData.dayOfWeek);
-    
-    // Sirf tabhi append karein agar file select ki gayi ho
-    if (editImageFile) {
-      data.append('image', editImageFile);
-    }
+    e.preventDefault();
+    try {
+      const data = new FormData();
+      data.append('name', editFormData.name);
+      data.append('fatherName', editFormData.fatherName);
+      data.append('wand', editFormData.wand);
+      data.append('dateOfDemise', editFormData.dateOfDemise);
+      data.append('dayOfWeek', editFormData.dayOfWeek);
+      
+      if (editImageFile) {
+        data.append('image', editImageFile);
+      }
 
-    const response = await axios.put(`https://khayyan-portal-backend.vercel.app/api/marhoomein/update/${editMarhoom._id}`, data);
+      const response = await axios.put(`https://khayyan-portal-backend.vercel.app/api/marhoomein/update/${editMarhoom._id}`, data, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
 
-    if (response.data.success) {
-      alert("📝 Record kamyabi se update ho gaya!");
-      setEditMarhoom(null);
-      fetchMarhoomein();
+      if (response.data.success || response.status === 200) {
+        alert("📝 Record kamyabi se update ho gaya!");
+        setEditMarhoom(null);
+        setEditImageFile(null);
+        fetchMarhoomein();
+      }
+    } catch (error) {
+      console.error("Update error:", error);
+      alert("❌ Error! Update nahi ho saka.");
     }
-  } catch (error) {
-    console.error("Update error:", error);
-    alert("❌ Error! Update nahi ho saka.");
-  }
-};
+  };
 
   // Loading Screen
   if (loading) {
@@ -162,7 +164,6 @@ function Directory() {
       </div>
     );
   }
-
   return (
     <div className="max-w-5xl mx-auto px-6 py-12 mt-16 min-h-screen">
       {/* Page Header */}
@@ -212,29 +213,28 @@ function Directory() {
           >
             <div>
               {/* Top Bar inside Card */}
-              <div className="flex justify-between items-start mb-4">
-               {/* Directory Grid Layout ke andar is part ko replace karein */}
-{person.imageName && person.imageName !== "cover.jpg" ? (
-  <img 
-    src={person.imageName} 
-    alt={person.name} 
-    className="w-44 h-44 rounded-xl object-contain border border-slate-200"
-    onError={(e) => {
-      e.target.style.display = 'none';
-      e.target.nextSibling.style.display = 'flex';
-    }}
-  />
-) : null}
+              <div className="flex justify-between items-start mb-4 gap-4">
+                {person.imageName && person.imageName !== "cover.jpg" ? (
+                  <img 
+                    src={person.imageName} 
+                    alt={person.name} 
+                    className="w-24 h-24 rounded-xl object-cover border border-slate-200 shadow-sm"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                ) : null}
 
                 {/* Fallback Icon */}
                 {(!person.imageName || person.imageName === "cover.jpg") && (
-                  <div className="w-24 h-24 bg-slate-100 text-slate-600 font-bold rounded-xl flex items-center justify-center text-3xl">
+                  <div className="w-24 h-24 bg-slate-100 text-slate-600 font-bold rounded-xl flex items-center justify-center text-3xl shadow-sm">
                     👤
                   </div>
                 )} 
 
-                <span className="text-xs font-bold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
-                  {person.wand}
+                <span className="text-xs font-bold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100 whitespace-nowrap">
+                  {person.wand.split(' ')[0]} {/* Chota dikhane ke liye sirf naam */}
                 </span>
               </div>
 
@@ -254,7 +254,7 @@ function Directory() {
 
               {/* --- ADMIN ACTION BUTTONS --- */}
               {isAdmin && (
-                <div className="flex gap-2 pt-2 border-t border-dashed border-slate-300">
+                <div className="flex gap-2 pt-2 border-t border-dashed border-slate-400/60">
                   <button 
                     onClick={(e) => handleEditClick(person, e)}
                     className="flex-1 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold py-2 rounded-xl transition-colors cursor-pointer text-center"
@@ -301,16 +301,15 @@ function Directory() {
             </button>
 
             <div className="w-full md:w-1/2 bg-slate-100 flex items-center justify-center h-64 md:h-auto min-h-[320px] relative">
-              {/* Image Detail Modal ke andar is part ko replace karein */}
-{selectedMarhoom.imageName && selectedMarhoom.imageName !== "cover.jpg" ? (
-  <img 
-    src={selectedMarhoom.imageName} 
-    alt={selectedMarhoom.name} 
-    className="w-full h-full object-contain absolute inset-0"
-  />
-) : (
-  <div className="absolute inset-0 bg-slate-200 text-slate-400 flex items-center justify-center text-7xl">👤</div>
-)}
+              {selectedMarhoom.imageName && selectedMarhoom.imageName !== "cover.jpg" ? (
+                <img 
+                  src={selectedMarhoom.imageName} 
+                  alt={selectedMarhoom.name} 
+                  className="w-full h-full object-contain absolute inset-0"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-slate-200 text-slate-400 flex items-center justify-center text-7xl">👤</div>
+              )}
             </div>
 
             <div className="w-full md:w-1/2 p-8 flex flex-col justify-center bg-gradient-to-br from-white to-slate-50 text-left">
@@ -392,6 +391,7 @@ function Directory() {
               <div>
                 <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Nayi Tasveer (Optional)</label>
                 <input 
+                  id="editImageFileInput"
                   type="file" accept="image/*" onChange={(e) => setEditImageFile(e.target.files[0])}
                   className="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer"
                 />

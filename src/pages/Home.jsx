@@ -114,7 +114,7 @@ function Home() {
         </p>
       </div>
 
-      {/* MODERN SEARCH BAR SECTION */}
+      {/* MODERN SEARCH BAR SECTION (🔥 FIX: Bound homeSearch value) */}
       <form onSubmit={handleSearchSubmit} className="relative flex items-center bg-white shadow-[0_4px_20px_rgba(0,0,0,0.04)] border-2 border-emerald-600 rounded-full overflow-hidden p-1.5 focus-within:border-green-600 focus-within:shadow-[0_4px_25px_rgba(34,197,94,0.15)] transition-all duration-300 w-full max-w-xl mx-auto mb-12 px-4 hover:shadow-[5px_10px_20px_rgba(0,255,0,0.4)] hover:-translate-y-2">
         <div className="pl-4 text-gray-400 flex items-center justify-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
@@ -122,6 +122,7 @@ function Home() {
           </svg>
         </div>
         <input
+          value={homeSearch}
           onChange={(e)=>setHomeSearch(e.target.value)} 
           type="text" 
           placeholder="Marhoom ka naam ya gaoon ka sector talash karein..." 
@@ -164,7 +165,7 @@ function Home() {
         </button>
       </div>
 
-      {/* --- COUNTER BOXES SECTION --- */}
+      {/* --- COUNTER BOXES SECTION (🔥 FIX: Corrected namespace from xml to svg) --- */}
       <div className='max-w-4xl mx-auto mt-16 mb-12 p-4 w-full'>
         <div className='grid grid-cols-1 sm:grid-cols-3 gap-6'>
           <div className='bg-slate-300 p-6 group flex flex-col justify-center items-center rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[5px_10px_20px_rgba(0,255,0,0.4)] '>
@@ -181,7 +182,7 @@ function Home() {
 
           <div className='bg-slate-300 p-6 group flex flex-col justify-center items-center rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-[5px_10px_20px_rgba(0,255,0,0.4)] '>
             <div className='w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-700 mb-3 group-hover:text-white group-hover:bg-green-400 transition-all duration-300'>
-              <svg xmlns="http://www.w3.org/2000/xl" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
               </svg>
             </div>
@@ -204,7 +205,6 @@ function Home() {
           </div>
         </div>
       </div>
-
       {/* Quick Action Cards */}
       <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
         <Link to="/directory" className="group p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-[5px_10px_20px_rgba(0,255,0,0.4)] transition-all text-left block hover:border-emerald-600 hover:scale-105 duration-300">
@@ -285,7 +285,7 @@ function Home() {
                     {item.details}
                   </div>
 
-                  {/* 🔥 NEW DETECTED AUDIO FEATURE: Play voice note right inside the card */}
+                  {/* Play voice note right inside the card */}
                   {item.audio && (
                     <div className="mt-4 p-2 bg-slate-100/80 border border-slate-200 rounded-xl shadow-inner">
                       <span className="text-[11px] font-bold text-slate-500 flex items-center gap-1 mb-1 px-1">
@@ -301,7 +301,6 @@ function Home() {
                     </div>
                   )}
                 </div>
-
               </div>
             ))}
           </div>
@@ -360,41 +359,41 @@ function Home() {
           </a>
         </div>
       </div>
-      {/* 🔥 PERMANENT QABRISTAN MAP SECTION */}
-<div className="max-w-4xl mx-auto mt-16 text-left px-4">
-  <div className="border-l-4 border-emerald-600 pl-4 mb-6">
-    <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-      📍 Gaoon Qabristan Location
-    </h2>
-    <p className="text-sm capitalize text-emerald-600 font-bold">
-      Janaze ya Dua-e-Maghfirat ke liye rasta dhoondne mein aasani ke liye live map link.
-    </p>
-  </div>
 
-  <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200/60 p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-sm hover:shadow-[5px_10px_25px_rgba(16,185,129,0.2)] transition-all duration-300">
-    <div className="flex items-start gap-4">
-      <div className="w-12 h-12 bg-white text-emerald-600 shadow-sm border border-emerald-100 rounded-xl flex items-center justify-center text-2xl shrink-0">
-        🗺️
+      {/* PERMANENT QABRISTAN MAP SECTION */}
+      <div className="max-w-4xl mx-auto mt-16 text-left px-4">
+        <div className="border-l-4 border-emerald-600 pl-4 mb-6">
+          <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+            📍 Gaoon Qabristan Location
+          </h2>
+          <p className="text-sm capitalize text-emerald-600 font-bold">
+            Janaze ya Dua-e-Maghfirat ke liye rasta dhoondne mein aasani ke liye live map link.
+          </p>
+        </div>
+
+        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200/60 p-6 rounded-2xl flex flex-col md:flex-row justify-between items-center gap-4 shadow-sm hover:shadow-[5px_10px_25px_rgba(16,185,129,0.2)] transition-all duration-300">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 bg-white text-emerald-600 shadow-sm border border-emerald-100 rounded-xl flex items-center justify-center text-2xl shrink-0">
+              🗺️
+            </div>
+            <div>
+              <h4 className="text-base font-bold text-slate-900">Main Khayyan Qabristan Route</h4>
+              <p className="text-xs text-slate-500 font-semibold mt-0.5 leading-relaxed">
+                Baahir ke shehron ya door se aane wale azeez o aqarib is permanent Google Maps button ke zariye seedha qabristan ki exact pin location par pohanch sakte hain.
+              </p>
+            </div>
+          </div>
+          
+          <a 
+            href="https://www.google.com/maps/place/Khayyan,+Pakistan/@32.4629074,73.8216942,91m/data=!3m1!1e3!4m6!3m5!1s0x391f6b5b7d300fe7:0xa929661e8f03c614!8m2!3d32.4615143!4d73.8257325!16s%2Fg%2F1tklnyk5!5m1!1e2?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-full md:w-auto text-center shrink-0 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-md shadow-emerald-600/10 active:scale-95 hover:shadow-lg transition-all duration-200"
+          >
+            Open in Google Maps
+          </a>
+        </div>
       </div>
-      <div>
-        <h4 className="text-base font-bold text-slate-900">Main Khayyan Qabristan Route</h4>
-        <p className="text-xs text-slate-500 font-semibold mt-0.5 leading-relaxed">
-          Baahir ke shehron ya door se aane wale azeez o aqarib is permanent Google Maps button ke zariye seedha qabristan ki exact pin location par pohanch sakte hain.
-        </p>
-      </div>
-    </div>
-    
-    {/* 👇 "https://maps.google.com/..." ki jagah apna exact link laga dena */}
-    <a 
-      href="https://www.google.com/maps/place/Khayyan,+Pakistan/@32.4629074,73.8216942,91m/data=!3m1!1e3!4m6!3m5!1s0x391f6b5b7d300fe7:0xa929661e8f03c614!8m2!3d32.4615143!4d73.8257325!16s%2Fg%2F1tklnyk5!5m1!1e2?entry=ttu&g_ep=EgoyMDI2MDYyOS4wIKXMDSoASAFQAw%3D%3D" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="w-full md:w-auto text-center shrink-0 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-md shadow-emerald-600/10 active:scale-95 hover:shadow-lg transition-all duration-200"
-    >
-      Open in Google Maps
-    </a>
-  </div>
-</div>
 
       {/* ================= CONTRIBUTORS SECTION ================= */}
       <div className="max-w-4xl mx-auto mt-20 text-left px-4">
@@ -424,7 +423,7 @@ function Home() {
             </div>
           </div>
 
-          {/* Data Provider Card */}
+          {/* Data Provider Card (🔥 FIX: Fixed matching name identity) */}
           <div 
             onClick={() => setActiveModal('provider')} 
             className="group relative bg-white p-8 rounded-2xl shadow-sm border border-slate-200/60 w-72 cursor-pointer transition-all duration-300 ease-out hover:-translate-y-3 hover:shadow-2xl hover:shadow-emerald-100 hover:border-emerald-400"
@@ -501,11 +500,11 @@ function Home() {
                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
                   Records Contributor
                 </span>
-                <h3 className="text-3xl font-extrabold text-gray-950 mt-3 tracking-tight">Zohaib Ahmed</h3>
+                <h3 className="text-3xl font-extrabold text-gray-950 mt-3 tracking-tight">Zohaib Warraich</h3>
                 <p className="text-sm font-semibold text-emerald-600 mt-1">Core Records Contributor</p>
               </div>
               <p className="text-gray-600 text-sm leading-relaxed mt-5 border-t border-slate-100 pt-4 font-medium">
-                Unhon ne is neik maqsad me marhoomein ki darust maloomat aur details ikatha karne me ahem kirdar ada kiya hai, taaki data har tarah se authentic aur mukammal ho.
+                Unhon ne is neik maqsam me marhoomein ki darust maloomat aur details ikatha karne me ahem kirdar ada kiya hai, taaki data har tarah se authentic aur mukammal ho.
               </p>
             </div>
           </div>
