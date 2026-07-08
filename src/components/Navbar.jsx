@@ -2,36 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
-  useEffect(() => {
-    // 1. Pehle check karo agar script already header me nahi lagi hui, to laga do
-    const scriptId = 'google-translate-script';
-    let googleScript = document.getElementById(scriptId);
 
-    if (!googleScript) {
-      googleScript = document.createElement('script');
-      googleScript.id = scriptId;
-      googleScript.type = 'text/javascript';
-      googleScript.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-      document.body.appendChild(googleScript);
-    }
-
-    // 2. Global callback function ko window object par force-bind karo
-    window.googleTranslateElementInit = () => {
-      if (window.google && window.google.translate && !document.querySelector('.goog-te-combo')) {
-        new window.google.translate.TranslateElement({
-          pageLanguage: 'en',
-          includedLanguages: 'ur',
-          layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        }, 'google_translate_element');
-      }
-    };
-
-    // 3. Agar script pehle se load thi par element render nahi hua, to manual call karo
-    if (window.google && window.google.translate) {
-      window.googleTranslateElementInit();
-    }
-  }, []);
 
   return (
     <nav className="bg-slate-950 fixed top-0 left-0 w-full h-16 z-50 text-white shadow-xl border-b border-emerald-900/30">
@@ -45,7 +16,7 @@ function Navbar() {
         <div className="flex items-center gap-6 font-medium">
           <Link to="/" className="hover:text-emerald-400 transition-colors relative after:content-[''] after:absolute after:w-0 after:h-[3px] after:bg-emerald-500 after:left-0 after:-bottom-1 hover:after:w-full after:transition-all after:duration-300">Home</Link>
           <Link to="/directory" className="hover:text-emerald-400 transition-colors relative after:content-[''] after:w-0 after:h-[3px] after:absolute after:left-0 after:-bottom-1 after:bg-emerald-500 hover:after:w-full hover:after:transition-all after:duration-300">Directory</Link>
-          <Link to="/admin" className="bg-emerald-600 hover:bg-emerald-700 px-4 py-1.5 rounded-lg text-sm font-semibold text-white shadow-lg transition-all hover:shadow-[0px_5px_20px_rgba(0,255,0,0.4)]">
+          <Link to="/admin" className="bg-emerald-600 hover:bg-emerald-700 px-4 py-1.5 rounded-lg text-sm sm:text-xs font-semibold text-white shadow-lg transition-all hover:shadow-[0px_5px_20px_rgba(0,255,0,0.4)]">
             Admin Portal
           </Link>
         </div>

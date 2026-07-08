@@ -267,7 +267,7 @@ function Home() {
                   {item.image && (
                     <div className="w-56 h-56 overflow-hidden rounded-xl mb-4 border border-slate-100 bg-slate-50 mx-auto">
                       <img 
-                        src={`http://localhost:5000${item.image}`} 
+                        src={`${item.image}`} 
                         alt="Marhoom" 
                         className="w-full h-full object-contain bg-gray-100 rounded-lg"
                         onError={(e) => { e.target.style.display = 'none'; }}
@@ -292,7 +292,7 @@ function Home() {
                         📢 Awaaz Sunien / Voice Announcement:
                       </span>
                       <audio 
-                        src={`http://localhost:5000${item.audio}`} 
+                        src={`${item.audio}`} 
                         controls 
                         className="w-full h-8 accent-emerald-600 rounded-lg focus:outline-none"
                       >

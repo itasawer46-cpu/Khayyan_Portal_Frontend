@@ -132,6 +132,8 @@ const AdminDashboard = () => {
         if (fileInput) fileInput.value = '';
       }
     } catch (error) {
+      console.log("error pagra gaya");
+      
       console.error('Error sending data to backend:', error);
     }
   };
